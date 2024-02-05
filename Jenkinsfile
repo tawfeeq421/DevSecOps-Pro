@@ -70,5 +70,12 @@ pipeline{
                 sh 'docker run -d --name netflix -p 8081:80 tawfeeq421/netflix:v1'
             }
         }
+        stage('Deploy to kubernets'){
+            steps{
+                script{
+                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                       sh 'kubectl apply -f deployment.yaml'
+                  }
+                }
     }
 }
