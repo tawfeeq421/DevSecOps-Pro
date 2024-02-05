@@ -81,19 +81,6 @@ pipeline {
                 sh 'docker run -d --name netflix -p 8081:80 tawfeeq421/netflix:v1'
             }
         }
-        stage('Deploy to Kubernetes') {
-             steps {
-                   script {
-                         withKubeConfig(
-                                     credentialsId: 'k8s',
-                                     namespace: 'prometheus-node-exporter',  // Set the correct namespace here
-                                     serverUrl: 'your_k8s_server_url',
-                                     restrictKubeConfigAccess: false
-                                   ) {
-                                     sh 'cd Kubernetes && kubectl apply -f .'
-                                     }
-                          }
-                  }
-        }
+        
     }
 }
